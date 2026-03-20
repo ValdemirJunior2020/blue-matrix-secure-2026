@@ -1,0 +1,37 @@
+[
+  {
+    "id": "telus",
+    "name": "Telus",
+    "username": "telus",
+    "password": "telus123",
+    "model": "gpt-5.4-mini"
+  },
+  {
+    "id": "buwelo",
+    "name": "Buwelo",
+    "username": "buwelo",
+    "password": "buwelo123",
+    "model": "gpt-5.4-mini"
+  },
+  {
+    "id": "concentrix",
+    "name": "Concentrix",
+    "username": "concentrix",
+    "password": "concentrix123",
+    "model": "gpt-5.4-mini"
+  },
+  {
+    "id": "teleperformance",
+    "name": "Teleperformance",
+    "username": "teleperformance",
+    "password": "teleperformance123",
+    "model": "gpt-5.4-mini"
+  },
+  {
+    "id": "wns",
+    "name": "WNS",
+    "username": "wns",
+    "password": "wns123",
+    "model": "gpt-5.4-mini"
+  }
+]

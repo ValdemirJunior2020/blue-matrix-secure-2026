@@ -1,0 +1,61 @@
+# File: .gitignore
+
+# -----------------------------
+# OS / Editor
+# -----------------------------
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# -----------------------------
+# Logs
+# -----------------------------
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+*.log
+
+# -----------------------------
+# Root dependencies
+# -----------------------------
+node_modules/
+
+# -----------------------------
+# Client
+# -----------------------------
+client/node_modules/
+client/dist/
+client/.netlify/
+client/.vite/
+client/.env
+client/.env.*
+!client/.env.example
+
+# -----------------------------
+# Server
+# -----------------------------
+server/node_modules/
+server/.env
+server/.env.*
+!server/.env.example
+server/data/call-centers.runtime.json
+
+# -----------------------------
+# Build / coverage / temp
+# -----------------------------
+dist/
+build/
+coverage/
+.tmp/
+temp/
+.tmp*/
+.cache/
+
+# -----------------------------
+# TypeScript
+# -----------------------------
+*.tsbuildinfo
