@@ -58,21 +58,32 @@ app.get("/api/settings", requireAuth, (req, res) => {
 app.put("/api/settings/api-key", requireAuth, (req, res) => {
   try {
     const apiKey = String(req.body?.apiKey || "").trim();
-    const model = String(req.body?.model || process.env.DEFAULT_OPENAI_MODEL || "gpt-5.4-mini").trim();
+    const model = String(
+      req.body?.model || process.env.DEFAULT_OPENAI_MODEL || "gpt-5.4-mini"
+    ).trim();
 
     if (!apiKey) {
-      return res.status(400).json({ ok: false, error: "Please paste an OpenAI API key." });
+      return res.status(400).json({
+        ok: false,
+        error:
+          "No OpenAI key was entered. To continue, open Matrix AI > Settings, paste your call center's OpenAI secret key, choose the model, and click Save. If you do not have a key yet, sign in at https://platform.openai.com/, go to API Keys, create a new secret key, then come back here and save it."
+      });
     }
 
     if (!apiKey.startsWith("sk-")) {
-      return res.status(400).json({ ok: false, error: "That does not look like an OpenAI API key." });
+      return res.status(400).json({
+        ok: false,
+        error:
+          "That key format does not look valid. OpenAI keys usually start with 'sk-'. Please go to https://platform.openai.com/, open API Keys, create or copy a valid secret key, then return to Matrix AI > Settings and save it again."
+      });
     }
 
     const user = updateApiKeyForCenter(req.user.id, apiKey, model);
     return res.json({
       ok: true,
       user,
-      message: "The API key was saved for this call center and is ready to use right away."
+      message:
+        "The OpenAI key was saved for this call center and is ready to use right away."
     });
   } catch (error) {
     return res.status(500).json({ ok: false, error: String(error?.message || error) });
@@ -92,14 +103,18 @@ app.post("/api/chat", requireAuth, async (req, res) => {
   try {
     const message = String(req.body?.message || "").trim();
     if (!message) {
-      return res.status(400).json({ ok: false, error: "Please type a question before sending." });
+      return res.status(400).json({
+        ok: false,
+        error: "Please type a question before sending."
+      });
     }
 
     const apiKey = getDecryptedApiKey(req.user.id);
     if (!apiKey) {
       return res.status(400).json({
         ok: false,
-        error: "This call center does not have an OpenAI key saved yet. Open Settings and paste the key first."
+        error:
+          "This call center does not have an OpenAI key saved yet, so Matrix AI cannot answer questions right now. To fix this, open Matrix AI > Settings, paste your call center's OpenAI secret key, choose the model, and click Save. If you do not have a key yet, sign in at https://platform.openai.com/, go to API Keys, create a new secret key, then return here and save it."
       });
     }
 
@@ -115,7 +130,8 @@ app.post("/api/chat", requireAuth, async (req, res) => {
     if (!matches.found) {
       return res.json({
         ok: true,
-        answer: "NOT FOUND IN DOCS\n\nPlease clarify the exact scenario, reservation status, and what action the agent is trying to take.",
+        answer:
+          "NOT FOUND IN DOCS\n\nPlease clarify the exact scenario, reservation status, and what action the agent is trying to take.",
         source: "matrix-fallback"
       });
     }
